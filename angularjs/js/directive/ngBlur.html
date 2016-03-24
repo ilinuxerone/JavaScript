@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>directive demo</title>
+	<link rel="stylesheet" type="text/css" href="./directive.css">
+	<script type="text/javascript" src="../lib/angular-1.5.0/angular.min.js"></script>
+	<script type="text/javascript" src="./ngBlur.js"></script>
+</head>
+
+<body ng-app="inputApp" ng-init="username='zzh'">
+<div ng-controller='inputCtrl'>
+	<label>username:
+		<input type="text" ng-model='username' ng-blur='checkUserName()'></input>
+		<span style="color:red;" ng-show="usernameAlreadyExist">user exists already!</span>
+	</label>
+</div>
+</body>
+</html>
