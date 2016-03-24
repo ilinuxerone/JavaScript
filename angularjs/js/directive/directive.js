@@ -21,7 +21,8 @@ angular.module('simpleModal', [])
 					scope.show = false;
 				}
 			},
-			template:"<div ng-show='show'>  <div class = 'modal-overlay' ng-click='hideModal'> </div> <div class='modal-background' ng-style='windowStyle'>  <div class='modal-close' ng-click='hideModal()'>X </div> <div class='modal-content' ng-transclude>   </div> </div> 	</div>"
+			//template:"<div ng-show='show'>  <div class = 'modal-overlay' ng-click='hideModal'> </div> <div class='modal-background' ng-style='windowStyle'>  <div class='modal-close' ng-click='hideModal()'>X </div> <div class='modal-content' ng-transclude>   </div> </div> 	</div>"
+			templateUrl:'modal.html'
 		}
 	})
 	.controller('modalCtrl', ['$scope', function($scope){
