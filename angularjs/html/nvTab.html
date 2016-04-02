@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="simpleTab">
+<head>
+	<title>simpleTab</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap-3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript" src="../js/lib/angular-1.5.0/angular.min.js"></script>	
+	<style type="text/css">
+		.tabs-nav {
+			padding: 0 0 0 0;
+			list-style: none;
+		}
+		.tabs-nav li {
+			display: inline;
+			margin-right: 20px;
+		}
+		.tabs-nav  a {
+			display:inline-block;
+			cursor:pointer;
+		}
+
+		.tabs-nav .active {
+			color:red;
+		}
+		.tab-content {
+			border: 1px solid #ddd;
+			padding: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="" ng-init="tab=1">
+		<ul class="tabs-nav">
+			<li><a  ng-click="tab=1" ng-class="{'active': tab==1}">First tab
+			</a></li>
+			<li><a ng-click="tab=2" ng-class="{'active': tab==2}">Second tab
+			</a></li>			
+			<li><a ng-click="tab=3" ng-class="{'active':tab==3}"</a>Third tab</li>
+		</ul>
+
+		<div class="">
+		<div class="tab-content" ng-show="tab==1">
+			<h1>First Tab</h1>
+			<p>Simple Tab 1</p>
+		</div>
+		<div class="tab-content" ng-show="tab==2">
+			<h1>Second Tab</h1>
+			<p>Simple Tab 1</p>
+		</div>
+		<div class="tab-content" ng-show="tab==3">
+			<h1>Third Tab</h1>
+			<p>Simple Tab 1</p>
+		</div>		
+	</div>
+</div>
+
+<script type="text/javascript">
+	angular.module('simpleTab', []);
+</script>
+	
+</body>
+</html>
