@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Simple tab with Directive</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap-3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript" src="../js/lib/angular-1.5.0/angular.min.js"></script>
+	<script src="../js/directive/ngTabs.js"></script>	
+	<style type="text/css">
+		.tabs-nav {
+			padding: 20px 0 0;
+			list-style: none;
+		}
+		.tabs-nav li {
+			display: inline;
+			margin-right: 20px;
+		}
+
+		.tabs-nav a {
+			display: inline-block;
+			cursor: pointer;
+		}
+		.tabs-nav .active {
+			color:red;
+		}
+		.tab-content {
+			border: 1px solid #ddd;
+			padding: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div ng-app="simpleTabDirective">
+		<ng-tabs>
+			<content-tab dat-heading='First tab'  >
+				<h1>First Tab</h1>
+				<p>Simple tab 1</p>
+			</content-tab>
+			<content-tab dat-heading='Second tab'>
+				<h1>Second Tab</h1>
+				<p>Simple tab 2</p>
+			</content-tab>
+			<content-tab dat-heading='Third tab'>
+				<h1>Third Tab</h1>
+				<p>Simple tab 3</p>
+			</content-tab>
+		</ng-tabs>
+	</div>
+</body>
+</html>
