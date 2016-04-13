@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>select demo</title>
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap-3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript" src="../../js/lib/angular-1.5.0/angular.min.js"></script>
+</head>
+<body ng-app="selectApp" ng-controller="selectCtrl">
+	<div >
+		<select ng-model="selectModel1" ng-change="selectChange(selectModel1)">
+			<option value="0" ng-hide="false">---</option>
+			<option value="1" ng-selected="true">河南</option>
+			<option value="2">河北</option>
+			<option value="3">湖北</option>
+		</select>
+	</div>
+
+	<select ng-model="selected2" ng-change="changed(selected2)">
+		<option value="0">--Please Select--</option>
+		<option ng-repeat="row in model" value="{{row.id}}"	>{{row.productName}}</option>
+	</select>
+
+	<select ng-model="selected" ng-options="m.id as m.productName for m in model" ng-change="changed(selected)">
+		<option value="" ng-hide="isHide">--Please Select--</option>
+	</select>
+	<script type="text/javascript">
+		angular.module('selectApp', [])
+			.controller('selectCtrl', function($scope){
+				$scope.selectChange = function(selectModel1){
+					alert(selectModel1);
+				};
+				$scope.changed = function(select){
+					alert(select);
+				};
+
+				$scope.isHide=true;					
+
+				$scope.selected = '';
+				$scope.model = [{
+       				 id: 10001,
+      				 mainCategory: '男',
+ 				     productName: '水洗T恤',
+       				 productColor: '白'
+    				 }, {
+        			id: 10002,
+        			mainCategory: '女',
+        			productName: '圆领短袖',
+        			productColor: '黑'
+    				}, {
+        			id: 10003,
+       				mainCategory: '女',
+        			productName: '短袖短袖',
+        			productColor: '黃'
+    				}];
+			});
+	</script>
+</body>
+</html>
