@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="UTF-8">
+	<title>Angularjs 获取url参数</title>
+	<script type="text/javascript" src="../../js/lib/angular-1.5.0/angular.min.js"></script>
+  	<script type="text/javascript" src="../../js/lib/angular-1.5.0/angular-cookies.min.js"></script>
+
+  	<base href="/" />
+</head>
+<body ng-app="locationApp"  ng-controller="locationCtrl">
+	<button ng-click="onSubmit()">Submit</button>	
+	<button ng-click="onCancle()">Cancle</button>
+	<button ng-click="getParam()">getURLParams</button>
+	<button ng-click="openWindow()">openWindow</button>
+</body>
+<script type="text/javascript">
+	angular.module('locationApp', [])
+		.config(['$locationProvider', function($locationProvider){
+			$locationProvider.html5Mode(true);
+		}])
+		.controller('locationCtrl', ['$scope', '$location', '$window', function($scope, $location, $window){
+			$scope.onSubmit = function(){
+				$window.alert("onsubmit");
+			};
+			$scope.onCancle = function(){
+				$window.alert("onCancle");
+			};
+			$scope.getParam = function(){
+				if ($location.search().keyword){
+					$scope.keyword = $location.search().keyword;
+					$scope.name = $location.search()['name'];
+					param = 'keyword=' + $scope.keyword + '  name=' + $scope.name;
+					$window.alert(param);
+				}
+				$window.alert($location.absUrl());
+			};
+			$scope.openWindow = function(){
+				newUrl = $location.absUrl() + '?' + 'name=zzh&keyword=test';
+				$window.alert(newUrl);
+				$window.open(newUrl);
+				//$window.location.href = newUrl; 
+			}
+		}]);
+</script>
+</html>

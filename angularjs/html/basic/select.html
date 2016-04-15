@@ -22,7 +22,7 @@
 	</select>
 
 	<select ng-model="selected" ng-options="m.id as m.productName for m in model" ng-change="changed(selected)">
-		<option value="" ng-hide="isHide">--Please Select--</option>
+		<option value="" style="display:none">--Please Select--</option>
 	</select>
 	<script type="text/javascript">
 		angular.module('selectApp', [])
