@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="parentApp">
+<head>
+	<title>parent access iframe's scope</title>
+	  <script type="text/javascript" src="../../js/lib/angular-1.5.0/angular.min.js"></script>
+    <script type="text/javascript" src="../../js/lib/angular-1.5.0/angular-cookies.min.js"></script>
+
+</head>
+<body>
+<div ng-controller="parentCtrl" id="parent">
+	 <div id="cont" >
+            <button ng-click="tryget()">try</button>
+     </div>
+
+	<iframe src="E:/Workspace/JavaScript/angularjs/html/basic/child.html" id="iframe"></iframe>
+</div>	
+<script type="text/javascript">
+    var g ;
+	angular.module('parentApp', [])
+		.controller('parentCtrl',['$scope', '$window', function($scope, $window){
+				$scope.childScope = 1;
+				$scope.tryget = function(){
+					//不引入jquery
+					var test = angular.element(document.getElementById("parent"));
+					console.log(test.scope().childScope);
+
+					//引入jeqery 用法
+					//var  test1 = angular.element('#cont');
+/*			        var iframeContentWindow = $("#iframe")[0].contentWindow;
+			        var iframeDOM = $("#iframe")[0].contentWindow.document;
+			        var target = $(iframeDOM).find("#test2");
+			        var iframeAngular = iframeContentWindow.angular;
+			        var iframeScope = iframeAngular.element("#test2").scope();
+			        iframeScope.parentcall();
+			        iframeContentWindow.angular.element("#test2").scope().tempvalue = 66 ;
+			        iframeScope.tempvalue = 66;
+			        iframeContentWindow.tt = 22;
+			        iframeScope.parentcall();
+			        console.log(iframeScope.tempvalue);
+			        console.log(angular.element("#cont").scope());*/					
+				};
+		}]);
+</script>
+</body>
+</html>
+
+<!--
+Calling to child iFrame from parent
+
+1.Get child iFrame element from the parent (link to answer):
+
+document.getElementById("myIframe").contentWindow
+2.Access the scope of the element:
+
+document.getElementById("myIframe").contentWindow.angular.element("#someDiv").scope()
+3.Call the scope’s function or property:
+
+document.getElementById("myIframe").contentWindow.angular.element("#someDiv").scope().someAngularFunction(data);
+4.Call $scope.$apply after running the logic of the function/updating the property (link to Mishko’s answer):
+
+$scope.$apply(function () { });
+Another solution is to share the scope between the iFrames, but then you need angular in both sides: (link to answer and example)
+Calling parent from child iFrame
+
+Calling the parent function:
+parent.angular.element('#element-id').scope(); 
+-->

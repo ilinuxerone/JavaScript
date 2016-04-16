@@ -10,8 +10,15 @@
   <div ng-controller="childCtrl">
       <input type="button" value="Update parent scope!" ng-click="change();"/>
 </div>
+<div ng-controller="test2" id="test2">
+        <div id="cont" >
+            <button ng-click="parentcall()">get script</button>
+        </div>
+        {{tempvalue}}
+</div>
 
     <script>
+    var tt =11;
     angular.module('childApp', [])
       .controller('childCtrl', ['$scope', '$window', function($scope, $window){
           $scope.change = function(){
@@ -20,6 +27,16 @@
           //s.$apply();
             $window.alert(s);
           };
+      }])
+      .controller('test2', ['$scope', function($scope){
+        console.log("test2 controller initialize");
+        $scope.tempvalue=0;
+        $scope.parentcall = function()
+        {
+            $scope.tempvalue = 99 ;
+            console.log($scope.tempvalue);
+            console.log(tt);
+        }
       }]);
 
     </script>
