@@ -8,11 +8,19 @@
 
   	<base href="/" />
 </head>
-<body ng-app="locationApp"  ng-controller="locationCtrl">
+<body ng-app="locationApp" >
+<div id="ctrl" ng-controller="locationCtrl">
 	<button ng-click="onSubmit()">Submit</button>	
 	<button ng-click="onCancle()">Cancle</button>
 	<button ng-click="getParam()">getURLParams</button>
 	<button ng-click="openWindow()">openWindow</button>
+
+	<div>
+	Hello, {{name}}!
+	<input type="button" value="popup" onclick="window.open('E:/Workspace/JavaScript/angularjs/html/basic/child.html')"></input>
+	</div>
+</div>
+
 </body>
 <script type="text/javascript">
 	angular.module('locationApp', [])
@@ -20,6 +28,9 @@
 			$locationProvider.html5Mode(true);
 		}])
 		.controller('locationCtrl', ['$scope', '$location', '$window', function($scope, $location, $window){
+			 $scope.name = 'Superhero';
+			 $window.$parent= "haha";
+
 			$scope.onSubmit = function(){
 				$window.alert("onsubmit");
 			};
