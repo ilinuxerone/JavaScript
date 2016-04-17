@@ -6,11 +6,123 @@
 	<link rel="icon" type="image/jpg" href="nomnom.jpg">
   	<script type="text/javascript" src="../../js/lib/angular-1.5.0/angular.min.js"></script>
   	<script type="text/javascript" src="../../js/lib/angular-1.5.0/angular-cookies.min.js"></script>
-  	<script type="text/javascript" src='./ngcookie.js'></script>
+  	  	<script type="text/javascript" src="../../js/lib/jquery-1.12.3.js"></script>
 </head>
-<body ng-controller="cookieCtrl">
+<body>
+<div  ng-controller="cookieCtrl">
 	{{greeting}}
+</div>
+	
 
+<div ng-controller="ctrl">
+	Cookie Value:{{cookie.Name}}
+</div>
+
+<div ng-controller="ctrl2">
+  <h3>UsingCookie</h3>
+  <pre>Cookie: {{usingCookies|json}}</pre>
+  <pre>Cookie value: {{usingCookies['cookies.dotobject'].innerObj|json}}</pre>
+
+</div>
+
+<script type="text/javascript">
+	angular.module('cookieApp', ['ngCookies'])
+		.controller('ctrl', function($scope, $cookies){
+			$cookies.obj = {'Name' : 'zzh'};
+			$scope.cookie = $cookies.obj;
+		})
+		.controller('cookieCtrl', ['$scope','$window', '$cookies','$cookieStore', '$timeout', '$http', function($scope, $window,$cookies,$cookieStore, $timeout,$http){		
+			// Retrieving a cookie
+			debugger;
+  			if ($cookies.isLogin){
+  				$scope.greeting = "Welcom back!";
+  			}else {
+  				$cookies.isLogin = true;
+  				$scope.greeting = "Its your first time and we are stoked to meet you."
+  				console.log(typeof($cookies.isLogin));
+  			}
+
+
+        if ($cookies.get('myName') == undefined) {
+              //设置过期时间为一天
+              var expireDate = new Date();
+              expireDate.setDate(expireDate.getDate() + 1);
+  
+              $cookies.put('myName', 'Quber', { expires: expireDate });
+          } else {
+             console.log($cookies.get('myName'));
+         }
+
+         var someSessionObj = { 'innerObj' : 'somesessioncookievalue'};
+
+    $cookies.dotobject = someSessionObj;
+    $scope.usingCookies = { 'cookies.dotobject' : $cookies.dotobject, "cookieStore.get" : $cookieStore.get('dotobject') };
+    		console.log($cookies);
+		}])
+		.controller('ctrl2', ['$scope', '$cookies', '$cookieStore' , function($scope, $cookies, $cookieStore){
+				console.log($cookies.dotobject);
+				var someSessionObj = { 'innerObj' : 'somesessioncookievalue'};
+				$cookies.dotobject = someSessionObj;
+				$scope.usingCookies = { 'cookies.dotobject' : $cookies.dotobject};	
+		}]);
+
+$(document).ready(function() { 
+			//设置cookie
+			CookieUtil.set("name", "Nicholas");
+			CookieUtil.set("book", "Professional JavaScript");
+			//读值
+			alert(CookieUtil.get("name"));
+			alert(CookieUtil.get("book"));
+
+			//删除cookie
+			CookieUtil.unset("name");
+			CookieUtil.unset("book")
+			//设置1个cookie，包括它的路径、域、截止日期
+			CookieUtil.set("name", "Nicholas", "/books/projs/", "www.wrox.com", new Date("January 1, 2010"));
+			//删除同一cookie
+			CookieUtil.unset("name", "/books/projs/", "www.wrox.com");
+			//设置1个安全cookie
+			CookieUtil.set("name", "Nicholas", null, null, null, true);
+
+			window.document.cookie  = 'username=Darren';
+			console.log(window.document.cookie.length);  	
+}); 
+
+var CookieUtil = {
+    get: function (name) {
+        var cookieName = encodeURIComponent(name) + "=",
+            cookieStart = document.cookie.indexOf(cookieName),
+            cookieValue = null;
+        if (cookieStart > -1) {
+            var cookieEnd = document.cookie.indexOf(";", cookieStart)
+            if (cookieEnd == -1) {
+                cookieEnd = document.cookie.length;
+            }
+            cookieValue = decodeURIComponent(document.cookie.substring(cookieStart + cookieName.length, cookieEnd));
+        }
+        return cookieValue;
+    },
+    set: function (name, value, expires, path, domain, secure) {
+        var cookieText = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+        if (expires instanceof Date) {
+            cookieText += "; expires=" + expires.toGMTString();
+        }
+        if (path) {
+            cookieText += "; path=" + path;
+        }
+        if (domain) {
+            cookieText += "; domain=" + domain;
+        }
+        if (secure) {
+            cookieText == "; secure";
+        }
+        document.cookie = cookieText;
+    },
+    unset: function (name, path, domain, secure) {
+        this.set(name, "", new Date(0), path, domain, secure);
+    }
+};
+</script>
 </body>
 
 </html>

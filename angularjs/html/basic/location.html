@@ -29,7 +29,7 @@
 		}])
 		.controller('locationCtrl', ['$scope', '$location', '$window', function($scope, $location, $window){
 			 $scope.name = 'Superhero';
-			 $window.$parent= "haha";
+			 $window.$windowScope= "haha";
 
 			$scope.onSubmit = function(){
 				$window.alert("onsubmit");
