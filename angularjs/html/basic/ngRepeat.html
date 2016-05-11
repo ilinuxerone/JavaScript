@@ -8,11 +8,11 @@
 <body ng-app="RepeatAppDemo">
 <div  ng-controller="RepeatDemoCtrl">
     <div>
-        <input type="text"  ng-model="person.name"/>
-        <input type="text" ng-model="person.age"/>
+        <input type="text"  ng-model="person.name">
+        <input type="text" ng-model="person.age">
         <a ng-click="add()">add</a>
     </div>
-    <div  ng-repeat="person in persons">
+    <div  ng-repeat="person in persons track by $index">
         {{person.name}}
         <a ng-show="0==0" style="color:red" ng-click="del($index)">delete</a>
     </div>
@@ -24,7 +24,7 @@
     </div>
 </div>
 <div>
-    <table ng-controller="CartController">
+    <table  ng-show="items.length!=0" ng-controller="CartController">
         <caption>我的购物车</caption>
         <tr>
             <th>序号</th>
@@ -50,10 +50,11 @@
 
     angular.module("RepeatAppDemo", [])
             .controller("RepeatDemoCtrl", function($scope){
+                $scope.person={};
                 $scope.persons=[];
                 $scope.add=function(){
-                    var obj={id:101, age:30, name:"李四"};
-                    $scope.persons.push(obj);
+                  // var obj={id:101, age:30, name:"李四"};
+                    $scope.persons.push( $scope.person);
                 };
                 $scope.del = function(idx){
                     $scope.persons.splice(idx, 1);
