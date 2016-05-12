@@ -24,13 +24,35 @@
 	<select ng-model="selected" ng-options="m.id as m.productName for m in model" ng-change="changed(selected)">
 		<option value="" style="display:none">--Please Select--</option>
 	</select>
+
+	<!--
+		select 设置默认选项
+	-->
+	<div >
+		<select ng-model="current_option" ng-options="option.value as option.key for option in options" ng-change="selectChange(current_option)">
+			<option value="" style="display:none">--Please Select--</option>
+		</select>
+	</div>
+
+	<!--
+		select 实现联动
+	-->
+	<div>
+		<select  ng-model="option_p" ng-options="province.key for province in provinces"  ng-change="change_city(current)">
+		</select>
+		<select ng-model="option_c" ng-options="city.key for city in citys" ng-change="selectChange(option_c)"></select>
+	</div>
+
+
 	<script type="text/javascript">
 		angular.module('selectApp', [])
 			.controller('selectCtrl', function($scope){
 				$scope.selectChange = function(selectModel1){
+					console.log(selectModel1);
 					alert(selectModel1);
 				};
 				$scope.changed = function(select){
+					console.log(select);
 					alert(select);
 				};
 
@@ -53,6 +75,60 @@
         			productName: '短袖短袖',
         			productColor: '黃'
     				}];
+				$scope.options = [
+					{
+						"id":2,
+						"key" : 'hello',
+						"value" : 1,
+						'child': {
+							'id':2,
+							'a' : 'aa',
+							'b':'bb'
+						}
+					},
+					{
+						"id":4,
+						"key" : 'world',
+						"value" : 2,
+						'child':{
+							'id':4,
+							'a' : 'cc',
+							'b':'dd'
+						}
+					}
+				];
+				$scope.current_option = 2;
+
+				$scope.provinces=[
+					{
+						'key':'Hunan'
+					},
+					{
+						"key":'HeNan'
+					}
+				];
+				$scope.option_p=$scope.provinces[0];
+
+				/**** 根据父下拉框当前显示内容设置子下拉框内容 ****/
+				$scope.change_city = function ()                        // 这是方法, 调用执行
+				{
+					if ("Hunan" == $scope.option_p.key)
+					{
+						$scope.citys = [
+							{"key" : "hello_child_one", "value" : 1},
+							{"key" : "hello_child_two", "value" : 2},
+						];
+					}
+					else if ("HeNan" == $scope.option_p.key)
+					{
+						$scope.citys = [
+							{"key" : "world_child_one", "value" : 3},
+							{"key" : "world_child_two", "value" : 4},
+						];
+					}
+					$scope.option_c = $scope.citys[0];  // 子下拉框默认显示内容
+				}
+				$scope.change_city();
 			});
 	</script>
 </body>
