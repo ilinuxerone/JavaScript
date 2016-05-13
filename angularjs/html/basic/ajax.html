@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap-3.3.5/css/bootstrap.min.css">
+    <script type="text/javascript" src="../../js/lib/angular-1.5.0/angular.min.js"></script>
+    <style>
+        table, th , td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        table tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body ng-app="ajaxApp">
+
+<!--
+AngularJS需要JSON格式的数据。
+-->
+<div ng-controller="ajaxCtrl">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Roll No</th>
+            <th>Percentage</th>
+        </tr>
+        <tr ng-repeat="student in students">
+            <td>{{ student.Name }}</td>
+            <td>{{ student.RollNo }}</td>
+            <td>{{ student.Percentage }}</td>
+        </tr>
+    </table>
+</div>
+</body>
+<script>
+    angular.module('ajaxApp', [])
+            .controller('ajaxCtrl', function($scope, $http){
+                var url="data.txt";
+                $http.get(url).success( function(response) {
+                    $scope.students = response;
+                });
+            });
+</script>
+</html>
