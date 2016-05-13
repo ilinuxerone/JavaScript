@@ -25,6 +25,9 @@
 		<option value="" style="display:none">--Please Select--</option>
 	</select>
 
+	<select ng-model="selected" ng-options="m.id  for m in model" ng-change="changed(selected)">
+		<option value="" style="display:none">--Please Select--</option>
+	</select>
 	<!--
 		select 设置默认选项
 	-->
@@ -38,11 +41,18 @@
 		select 实现联动
 	-->
 	<div>
-		<select  ng-model="option_p" ng-options="province.key for province in provinces"  ng-change="change_city(current)">
+		<select  ng-model="option_p" ng-options="province.key for province in provinces"  ng-change="change_city()">
 		</select>
 		<select ng-model="option_c" ng-options="city.key for city in citys" ng-change="selectChange(option_c)"></select>
 	</div>
 
+	<!--
+	<div>
+		<select  ng-model="option_p1" ng-options="province.key for province in provinces"  ng-change="change_city()">
+		</select>
+		<select ng-model="option_c1" ng-options='city1 for city1 in  option_p1[child]' ng-change="selectChange(option_c1)"></select>
+	</div>
+	-->
 
 	<script type="text/javascript">
 		angular.module('selectApp', [])
@@ -80,21 +90,21 @@
 						"id":2,
 						"key" : 'hello',
 						"value" : 1,
-						'child': {
-							'id':2,
-							'a' : 'aa',
-							'b':'bb'
-						}
+						'child': [
+							11,
+							12,
+							13
+						]
 					},
 					{
 						"id":4,
 						"key" : 'world',
 						"value" : 2,
-						'child':{
-							'id':4,
-							'a' : 'cc',
-							'b':'dd'
-						}
+						'child':[
+							14,
+							15,
+							16
+						]
 					}
 				];
 				$scope.current_option = 2;
@@ -112,6 +122,7 @@
 				/**** 根据父下拉框当前显示内容设置子下拉框内容 ****/
 				$scope.change_city = function ()                        // 这是方法, 调用执行
 				{
+					console.log($scope.option_p);
 					if ("Hunan" == $scope.option_p.key)
 					{
 						$scope.citys = [

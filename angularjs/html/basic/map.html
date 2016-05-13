@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Map Demo</title>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap-3.3.5/css/bootstrap.min.css">
+    <script type="text/javascript" src="../../js/lib/angular-1.5.0/angular.min.js"></script>
+</head>
+<body ng-app="mapApp">
+<div ng-controller="mapCtrl">
+<ul>
+    <li ng-model="vMap" ng-repeat=" (key, value) in mapDemo1">
+        key: {{key }}, value: {{value}}
+    </li>
+</ul>
+
+    <ul>
+        <li ng-model="vMap" ng-repeat=" map  in mapDemo1">
+            {{map}}
+        </li>
+    </ul>
+</div>
+
+</body>
+<script>
+    angular.module('mapApp', [])
+            .controller('mapCtrl', function($scope){
+                $scope.mapDemo1 = {
+                    'a':1,
+                    'b':2,
+                    'c':3
+                }
+            });
+</script>
+</html>
