@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap-3.3.5/css/bootstrap.min.css">
+    <script type="text/javascript" src="../../js/lib/angular-1.5.0/angular.min.js"></script>
+    <script type="text/javascript"  src="../../js/lib/angular-1.5.0/i18n/angular-locale_zh-cn.js"></script>
+</head>
+<body  ng-app="i18App">
+
+<div ng-controller="i18Ctrl">
+    {{fees | currency }}  <br/><br/>
+    {{admissiondate | date }}   <br/><br/>
+    {{rollno | number }}
+</div>
+
+</body>
+<script>
+    angular.module('i18App', [])
+            .controller('i18Ctrl', function($scope){
+                $scope.fees = 100;
+                $scope.admissiondate  = new Date();
+                $scope.rollno = 123.45;
+            });
+</script>
+</html>
