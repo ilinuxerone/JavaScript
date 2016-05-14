@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap-3.3.5/css/bootstrap.min.css">
+    <script type="text/javascript" src="../../js/lib/angular-1.5.0/angular.js"></script>
+    <script type="text/javascript" src="../../js/lib/angular-1.5.0/angular-route.js"></script>
+
+</head>
+<body>
+<h2>AngularJS Sample Application</h2>
+<div ng-app="mainApp">
+    <p><a href="#addStudent">Add Student</a></p>
+    <p><a href="#viewStudents">View Students</a></p>
+    <div ng-view></div>
+    <script type="text/ng-template" id="addStudent.html">
+        <h2> Add Student </h2>
+        {{message}}
+    </script>
+    <script type="text/ng-template" id="viewStudents.html">
+        <h2> View Students </h2>
+        {{message}}
+    </script>
+</div>
+
+<script>
+    var mainApp = angular.module("mainApp", ['ngRoute']);
+
+    mainApp.config(['$routeProvider',
+        function($routeProvider) {
+            $routeProvider.
+            when('/addStudent', {
+                templateUrl: 'addStudent.html',
+                controller: 'AddStudentController'
+            }).
+            when('/viewStudents', {
+                templateUrl: 'viewStudents.html',
+                controller: 'ViewStudentsController'
+            }).
+            otherwise({
+                redirectTo: '/addStudent'
+            });
+        }]);
+
+    mainApp.controller('AddStudentController', function($scope) {
+        $scope.message = "This page will be used to display add student form";
+    });
+
+    mainApp.controller('ViewStudentsController', function($scope) {
+        $scope.message = "This page will be used to display all the students";
+    });
+</script>
+</body>
+</html>
