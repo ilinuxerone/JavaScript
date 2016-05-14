@@ -46,13 +46,13 @@
 		<select ng-model="option_c" ng-options="city.key for city in citys" ng-change="selectChange(option_c)"></select>
 	</div>
 
-	<!--
 	<div>
-		<select  ng-model="option_p1" ng-options="province.key for province in provinces"  ng-change="change_city()">
+		<select  ng-model="person_option" ng-options="person.id for person in persons" >
 		</select>
-		<select ng-model="option_c1" ng-options='city1 for city1 in  option_p1[child]' ng-change="selectChange(option_c1)"></select>
+		<select ng-model="interest_option" ng-options='interest for interest in  persons[person_option.id].interest' ></select>
+		<select ng-model="interest_option" ng-options='interest for interest in  person_option.interest' ></select>
 	</div>
-	-->
+
 
 	<script type="text/javascript">
 		angular.module('selectApp', [])
@@ -140,6 +140,28 @@
 					$scope.option_c = $scope.citys[0];  // 子下拉框默认显示内容
 				}
 				$scope.change_city();
+
+				$scope.person_option={};
+				$scope.interest_option={};
+				$scope.persons = [
+					{
+						'id':1,
+						'name':'zzh',
+						'interest':[
+								'football',
+								'basketball',
+								'tabletennes'
+						]
+					},{
+						'id':2,
+						'name':'lin',
+						'interest':[
+								'banana',
+								'apple',
+								'pear'
+						]
+					}
+				];
 			});
 	</script>
 </body>
