@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../../js/lib/angular-1.5.0/angular.min.js"></script>
+    <script type="text/javascript" src="../../js/lib/angular-1.5.0/angular-cookies.min.js"></script>
+</head>
+<body ng-app="parseApp">
+
+<div ng-controller="parseCtrl">
+    <h1>{{ParsedValue}}</h1>
+</div>
+
+<div ng-controller="parseCtrl">
+    <input type="text" ng-model="expression" />
+    <div>{{ParsedValue1}}</div>
+</div>
+
+<div ng-controller="parseCtrl">
+<div>{{ParsedValue2}}</div>
+</div>
+
+</body>
+<script>
+    angular.module('parseApp', [])
+            .controller('parseCtrl', function($scope, $parse){
+                var context = {
+                    name: "dreamapple"
+                };
+                // 因为这个解析的语句中含有我们想要解析的表达式，
+                // 所以要把不相关的用引号引起来，整体然后用+连接
+                var expression = "'Hello ' + name";
+                var parseFunc = $parse(expression);
+
+                $scope.ParsedValue = parseFunc(context);
+                //false
+                console.log(parseFunc.literal);
+                //false
+                console.log(parseFunc.constant);
+                //undefined
+                console.log(parseFunc.assign);
+                //hello
+                console.log(parseFunc());
+
+                console.log(parseFunc);
+
+                $scope.ParsedValue = parseFunc(context);
+
+                $scope.$watch("expression", function(newValue, oldValue, context){
+                    if(newValue !== oldValue){
+                        var parseFunc1 = $parse(newValue);
+                        $scope.ParsedValue1 = parseFunc1(context);
+                    }
+                });
+
+                $scope.context = {
+                    add: function(a, b){return a + b;},
+                    mul: function(a, b){return a * b}
+                }
+                $scope.expression1 = "mul(a, add(b, c))";
+                $scope.data = {
+                    a: 3,
+                    b: 6,
+                    c: 9
+                };
+                var parseFunc2 = $parse($scope.expression1);
+                $scope.ParsedValue2 = parseFunc2($scope.context, $scope.data);
+
+            });
+</script>
+</html>
